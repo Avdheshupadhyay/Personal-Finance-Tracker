@@ -1,0 +1,381 @@
+/* ShivayLedger Financial Journey Flow Styles */
+:root {
+  --shivay-blue: #1e88e5;
+  --shivay-blue-light: #64b5f6;
+  --shivay-gold: #ffc107;
+  --shivay-gold-light: #ffecb3;
+  --flow-line-color: #cfd8dc;
+  --good-green: #4caf50;
+  --warning-red: #f44336;
+}
+
+.financial-journey-container {
+  padding: 2rem 1rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.journey-title {
+  text-align: center;
+  color: var(--shivay-blue);
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Desktop Journey Flow Layout */
+.journey-flow {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+/* Mobile Journey Flow Layout - hidden by default on desktop */
+.journey-flow-mobile {
+  display: none;
+}
+
+/* Journey Nodes */
+.journey-node {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 28%;
+  min-height: 220px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.journey-node:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Node specific styling */
+.income-node {
+  border: 2px solid var(--shivay-blue);
+  box-shadow: 0 6px 15px rgba(30, 136, 229, 0.15);
+}
+
+.expenses-node {
+  border: 2px solid var(--shivay-gold);
+  box-shadow: 0 6px 15px rgba(255, 193, 7, 0.15);
+}
+
+.savings-node {
+  border: 2px solid var(--good-green);
+  box-shadow: 0 6px 15px rgba(76, 175, 80, 0.15);
+}
+
+/* Node Icons */
+.node-icon {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 60px;
+  margin-bottom: 1rem;
+}
+
+.icon {
+  font-size: 2.5rem;
+}
+
+.primary-icon {
+  position: absolute;
+  z-index: 2;
+  color: var(--shivay-blue);
+  animation: pulse 2s infinite;
+}
+
+.secondary-icon {
+  position: absolute;
+  transform: translateX(25px);
+  color: var(--shivay-gold);
+  opacity: 0.5;
+}
+
+.income-node .primary-icon {
+  color: var(--shivay-blue);
+}
+
+.expenses-node .primary-icon {
+  color: var(--shivay-gold);
+}
+
+.savings-node .primary-icon {
+  color: var(--good-green);
+}
+
+/* Node Content */
+.node-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.node-content h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #455a64;
+  margin-bottom: 1rem;
+}
+
+.amount {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--shivay-blue);
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.expenses-node .amount {
+  color: var(--shivay-gold);
+}
+
+.savings-node .amount {
+  color: var(--good-green);
+}
+
+.amount.negative {
+  color: var(--warning-red);
+}
+
+.percentage {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 0.25rem;
+}
+
+/* Quote Bubbles */
+.quote-bubble {
+  background: #f5f7fa;
+  border-radius: 12px;
+  padding: 1rem;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: #455a64;
+  margin-top: auto;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.quote-bubble:before {
+  content: '"';
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  font-size: 2rem;
+  color: rgba(0, 0, 0, 0.1);
+  font-family: serif;
+}
+
+.quote-bubble:hover {
+  transform: scale(1.05);
+}
+
+/* Flow Arrows */
+.flow-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 7%;
+  position: relative;
+}
+
+.arrow-line {
+  height: 3px;
+  background: var(--flow-line-color);
+  width: 0;
+  position: relative;
+  margin-bottom: 0.5rem;
+  transition: width 1.5s ease-in-out;
+}
+
+.arrow-line.animated {
+  width: 100%;
+}
+
+.arrow-icon {
+  color: var(--flow-line-color);
+  font-size: 1.5rem;
+  animation: bounceX 2s infinite;
+}
+
+/* Savings Progress */
+.savings-progress {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.progress-label {
+  font-size: 0.85rem;
+  color: #455a64;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.progress-bar {
+  height: 10px;
+  background: #eceff1;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 1.5s ease-in-out;
+  animation: progressGrow 1.5s ease-out;
+}
+
+.progress-fill.good {
+  background: var(--good-green);
+}
+
+.progress-fill.needs-improvement {
+  background: var(--warning-red);
+}
+
+/* Mobile View Styles */
+@media screen and (max-width: 768px) {
+  .journey-flow {
+    display: none;
+  }
+  
+  .journey-flow-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .journey-node-mobile {
+    width: 90%;
+    margin-bottom: 1.5rem;
+    padding: 1.25rem;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    position: relative;
+    animation: fadeIn 0.8s ease-in-out;
+  }
+  
+  .journey-node-mobile:nth-child(1) {
+    border-left: 5px solid var(--shivay-blue);
+  }
+  
+  .journey-node-mobile:nth-child(2) {
+    border-left: 5px solid var(--shivay-gold);
+  }
+  
+  .journey-node-mobile:nth-child(3) {
+    border-left: 5px solid var(--good-green);
+  }
+  
+  .node-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .node-icon-mobile {
+    font-size: 1.75rem;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(100, 181, 246, 0.1);
+  }
+  
+  .journey-node-mobile:nth-child(1) .node-icon-mobile {
+    color: var(--shivay-blue);
+    background: rgba(100, 181, 246, 0.1);
+  }
+  
+  .journey-node-mobile:nth-child(2) .node-icon-mobile {
+    color: var(--shivay-gold);
+    background: rgba(255, 193, 7, 0.1);
+  }
+  
+  .journey-node-mobile:nth-child(3) .node-icon-mobile {
+    color: var(--good-green);
+    background: rgba(76, 175, 80, 0.1);
+  }
+  
+  .journey-node-mobile h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #455a64;
+  }
+  
+  .journey-node-mobile .amount {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .quote-bubble-mobile {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: #546e7a;
+    background: #f5f7fa;
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    position: relative;
+    text-align: center;
+  }
+  
+  .arrow-down {
+    font-size: 1.5rem;
+    color: #cfd8dc;
+    text-align: center;
+    margin: 0.5rem 0;
+    animation: bounceY 2s infinite;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes bounceX {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(5px); }
+}
+
+@keyframes bounceY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+@keyframes progressGrow {
+  from { width: 0; }
+}
