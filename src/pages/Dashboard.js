@@ -10,7 +10,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import TransactionsTable from "../components/TransactionsTable";
 import FinancialJourneyFlow from "../components/Charts";
 import MonthSelector from "../components/MonthSelector";
-import { FaLinkedin, FaGlobe } from "react-icons/fa";
+import { FaLinkedin, FaGlobe, FaStar } from "react-icons/fa";
 
 const Dashboard = () => {
   const [user] = useAuthState(auth);
@@ -292,6 +292,24 @@ const Dashboard = () => {
     } catch (err) {
       console.error("Error updating monthly summary:", err);
       toast.error("Failed to update monthly summary");
+    }
+  };
+
+  const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
+
+  const handleFeedback = async (star) => {
+    setRating(star);
+    if (user) {
+      try {
+        await addDoc(collection(db, `users/${user.uid}/feedback`), { rating: star, date: new Date() });
+        toast.success(`Thanks for your ${star}-star feedback!`);
+      } catch (err) {
+        console.error("Error submitting feedback:", err);
+        toast.error("Failed to submit feedback");
+      }
+    } else {
+      toast.warning("Please log in to submit feedback");
     }
   };
 
@@ -701,6 +719,36 @@ const Dashboard = () => {
           <a href="https://my-portfolio-steel-seven-85.vercel.app/" target="_blank" rel="noopener noreferrer">
             <FaGlobe size={40} color="#333" />
           </a>
+        </div>
+      </div>
+      
+      {/* Feedback Widget */}
+      <div style={{
+        position: 'fixed',
+        bottom: '20px',
+        right: '20px',
+        background: 'white',
+        padding: '10px',
+        borderRadius: '8px',
+        boxShadow: '0 0 10px rgba(0,0,0,0.2)',
+        zIndex: 1000
+      }}>
+        <h4 style={{ margin: '0 0 5px 0' }}>Feedback</h4>
+        <div style={{ display: 'flex' }}>
+          {[1, 2, 3, 4, 5].map((star) => (
+            <FaStar
+              key={star}
+              size={20}
+              style={{
+                marginRight: '5px',
+                cursor: 'pointer',
+                color: star <= (hoverRating || rating) ? '#ffc107' : '#e4e5e9'
+              }}
+              onMouseEnter={() => setHoverRating(star)}
+              onMouseLeave={() => setHoverRating(0)}
+              onClick={() => handleFeedback(star)}
+            />
+          ))}
         </div>
       </div>
     </div>
