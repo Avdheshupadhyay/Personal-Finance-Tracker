@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import Cards from "../components/Cards";
-import Modal from "antd/es/modal/Modal";
+
+import { Modal } from "antd";
 import AddExpense from "../components/Modals/addExpense";
 import AddIncome from "../components/Modals/addIncome";
 import { toast } from "react-toastify";
