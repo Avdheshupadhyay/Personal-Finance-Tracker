@@ -4,7 +4,6 @@ import InputComponent from "../common/Input";
 import Button from "../common/Button";
 import { FcGoogle } from "react-icons/fc";
 import {
-  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -39,7 +38,7 @@ const SignupSignin = () => {
       createUserWithEmailAndPassword(auth, email, password)
         .then((response) => {
           // Signed in
-          const user = response.user;
+          
           toast.success("Sign in successfully");
           setLoading(false);
           setLoginForm(true);
@@ -49,6 +48,7 @@ const SignupSignin = () => {
           setcfPassword("");
 
           // create a doc with user id as the following id
+          const user = response.user;
           createDoc(user);
         })
         .catch((error) => {
@@ -68,7 +68,7 @@ const SignupSignin = () => {
       signInWithEmailAndPassword(auth, email, password)
         .then((response) => {
           // Signed in
-          const user = response.user;
+          
 
           toast.success("Login successfully");
           setEmail("");
@@ -119,10 +119,7 @@ const SignupSignin = () => {
       signInWithPopup(auth, provider)
         .then((result) => {
           // This gives you a Google Access Token. you can use it to access the Google API.
-          // const credential = GoogleAuthProvider.credentialFromResult(result); // Not needed
-          const user = result.user;
-          console.log(user);
-          createDoc(user);
+          createDoc(result.user);
           navigate("/dashboard");
           toast.success("Login successfully");
           setLoading(false);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./styles.css";
 import { FaUserCircle } from "react-icons/fa";
 import { auth } from "../../firebaseInit";
@@ -34,17 +34,10 @@ const UserProfile = () => {
     }
   };
 
-  // Color state for theme handling
-  const [colorSet, setColorSet] = useState({
-    "--primary-purple": "#6842EF", // Default primary color
-    "--primary-purple-shade": "#8161f4", // Default secondary color
-  });
-
   const handleColorChange = (colors) => {
     Object.entries(colors).forEach(([variable, color]) => {
       document.documentElement.style.setProperty(variable, color);
     });
-    setColorSet(colors);
   };
 
   return (

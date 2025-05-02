@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { FaMoneyBillWave, FaShoppingCart, FaPiggyBank, FaLongArrowAltRight } from "react-icons/fa";
+import { FaMoneyBillWave, FaPiggyBank, FaLongArrowAltRight } from "react-icons/fa";
 import { BsCashStack, BsCreditCard2Back } from "react-icons/bs";
-import { GiPayMoney, GiReceiveMoney, GiTakeMyMoney } from "react-icons/gi";
+import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
 import "./styles.css";
 
 const quotes = {

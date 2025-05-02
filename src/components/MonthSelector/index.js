@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Select, Button, Modal, Form, DatePicker, message } from "antd";
 import { PlusOutlined, CalendarOutlined } from "@ant-design/icons";
-import { collection, getDocs, query, setDoc, doc } from "firebase/firestore";
 import { db, auth } from "../../firebaseInit";
+import { doc, setDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import moment from "moment";
 import "./styles.css";
 
 const { Option } = Select;
-const { MonthPicker } = DatePicker;
 
 const MonthSelector = ({ 
   selectedMonth, 
