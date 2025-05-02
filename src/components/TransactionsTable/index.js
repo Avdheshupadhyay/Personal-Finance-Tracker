@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+              import React, { useState } from "react";
 import "./styles.css";
 import { Radio, Select, Table } from "antd";
 import { parse, unparse } from "papaparse";
@@ -61,6 +61,58 @@ const TransactionsTable = ({
       return 0;
     }
   });
+
+  // New: Group transactions by month
+  // Use YYYY-MM as the grouping key for stability
+  const groupByMonth = (transactions) => {
+    return transactions.reduce((acc, transaction) => {
+      if (!transaction.date || !transaction.type || transaction.amount == null) return acc;
+      const dateObj = new Date(transaction.date);
+      if (isNaN(dateObj.getTime())) return acc;
+      const monthKey = `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}`;
+      const type = String(transaction.type).trim().toLowerCase();
+      const amount = Number(transaction.amount);
+      if (isNaN(amount)) return acc;
+      if (!acc[monthKey]) {
+        acc[monthKey] = {
+          income: 0,
+          expense: 0,
+          transactions: [],
+          label: dateObj.toLocaleString('default', { month: 'short', year: 'numeric' })
+        };
+      }
+      if (type === 'income') {
+        acc[monthKey].income += amount;
+      } else if (type === 'expense') {
+        acc[monthKey].expense += amount;
+      }
+      acc[monthKey].transactions.push(transaction);
+      return acc;
+    }, {});
+  };
+
+  // Helper: Sort months chronologically
+  const sortMonthKeys = (keys) => keys.sort((a, b) => a.localeCompare(b));
+
+  // Calculate monthly comparisons with correct order
+  const calculateMonthlyComparisons = (grouped) => {
+    const monthKeys = sortMonthKeys(Object.keys(grouped));
+    return monthKeys.map((month, index) => {
+      const current = grouped[month];
+      const previous = index > 0 ? grouped[monthKeys[index-1]] : null;
+      return {
+        month: current.label,
+        ...current,
+        incomeChange: previous ? current.income - previous.income : 0,
+        expenseChange: previous ? current.expense - previous.expense : 0
+      };
+    });
+  };
+
+  const monthlyData = calculateMonthlyComparisons(groupByMonth(sortedTransactions));
+  // Debug: log the grouped and summary data
+  console.log('Monthly Grouped Data:', groupByMonth(sortedTransactions));
+  console.log('Monthly Summary Data:', monthlyData);
 
   // this function for downloading our csv file or exporting a csv file
   const exportCSV = () => {
